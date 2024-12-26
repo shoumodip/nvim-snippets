@@ -321,11 +321,15 @@ function utils.register_cmp_source()
 end
 
 function utils.load_friendly_snippets()
-	local search_paths = Snippets.config.get_option("search_paths", {})
+	local search_paths = {}
 	for _, path in ipairs(vim.api.nvim_list_runtime_paths()) do
 		if string.match(path, "friendly.snippets") then
 			table.insert(search_paths, path)
 		end
+	end
+
+	for _, path in ipairs(Snippets.config.get_option("search_paths", {})) do
+		table.insert(search_paths, path)
 	end
 	Snippets.config.set_option("search_paths", search_paths)
 end
